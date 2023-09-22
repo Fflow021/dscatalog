@@ -16,19 +16,19 @@ public class ProductDTO implements Serializable {
     private String name;
     private String description;
     private Double price;
-    private String imgURL;
+    private String imgUrl;
     private Instant date;
     private List<CategoryDTO> categories = new ArrayList<>();
 
     public ProductDTO() {
     }
 
-    public ProductDTO(Long id, String name, String description, Double price, String imgURL, Instant date) {
+    public ProductDTO(Long id, String name, String description, Double price, String imgUrl, Instant date) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.imgURL = imgURL;
+        this.imgUrl = imgUrl;
         this.date = date;
     }
 
@@ -37,18 +37,13 @@ public class ProductDTO implements Serializable {
         this.name = entity.getName();
         this.description = entity.getDescription();
         this.price = entity.getPrice();
-        this.imgURL = entity.getimgUrl();
+        this.imgUrl = entity.getimgUrl();
         this.date = entity.getDate();
     }
 
     public ProductDTO(Product entity, Set<Category> categories) {
         this(entity);
         categories.forEach(cat -> this.categories.add(new CategoryDTO(cat)));
-    }
-
-    public ProductDTO(Long id, String name) {
-        this.id = id;
-        this.name = name;
     }
 
     public Long getId() {
@@ -83,12 +78,28 @@ public class ProductDTO implements Serializable {
         this.price = price;
     }
 
-    public String getImgURL() {
-        return imgURL;
+    public String getImgUrl() {
+        return imgUrl;
     }
 
-    public void setImgURL(String imgURL) {
-        this.imgURL = imgURL;
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public Instant getDate() {
+        return date;
+    }
+
+    public void setDate(Instant date) {
+        this.date = date;
+    }
+
+    public List<CategoryDTO> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<CategoryDTO> categories) {
+        this.categories = categories;
     }
 
     @Override

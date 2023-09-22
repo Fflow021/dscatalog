@@ -40,6 +40,14 @@ public class Product implements Serializable {
         this.date = date;
     }
 
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
     public Long getId() {
         return id;
     }
@@ -91,6 +99,7 @@ public class Product implements Serializable {
     public Set<Category> getCategories() {
         return categories;
     }
+
 
     @Override
     public boolean equals(Object o) {
