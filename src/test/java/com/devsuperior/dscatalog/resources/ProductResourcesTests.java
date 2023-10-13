@@ -59,6 +59,39 @@ public class ProductResourcesTests {
         doNothing().when(service).delete(existingId);
         doThrow(ResourceNotFoundException.class).when(service).delete(nonExistingId);
         doThrow(DatabaseException.class).when(service).delete(dependentId);
+        //insert
+        when(service.insert(any())).thenReturn(productDTO);
+    }
+
+    @Test
+    public void deleteShouldReturnNotFoundWhenIdDoesntExists() throws Exception {
+
+        ResultActions result = mockMvc.perform(MockMvcRequestBuilders.delete("/products/{id}", nonExistingId)
+                .accept(MediaType.APPLICATION_JSON));
+        result.andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void deleteShouldReturnNoContentWhenIdExists() throws Exception {
+
+        ResultActions result = mockMvc.perform(MockMvcRequestBuilders.delete("/products/{id}", existingId)
+                .accept(MediaType.APPLICATION_JSON));
+        result.andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void insertShouldReturnProductDTPCreated() throws Exception{
+        String jsonBody = objectMapper.writeValueAsString(productDTO);
+
+        ResultActions result = mockMvc.perform(MockMvcRequestBuilders.post("/products")
+                .content(jsonBody)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON));
+        result.andExpect(status().isCreated());
+        result.andExpect(jsonPath("$.id").exists());
+        result.andExpect(jsonPath("$.name").exists());
+        result.andExpect(jsonPath("$.description").exists());
+
     }
 
     @Test
