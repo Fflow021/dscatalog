@@ -1,6 +1,8 @@
 package com.devsuperior.dscatalog.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 import java.io.Serializable;
 import java.time.Instant;
